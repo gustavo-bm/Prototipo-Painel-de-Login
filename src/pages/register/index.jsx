@@ -1,11 +1,14 @@
 import * as React from "react";
+import { useState } from "react";
+
+import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { auth } from "../../services/firebaseConfig";
 import Sheet from "@mui/joy/Sheet";
 import Typography from "@mui/joy/Typography";
 import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
 import Input from "@mui/joy/Input";
 import Button from "@mui/joy/Button";
-import Link from "@mui/joy/Link";
 
 import { CssVarsProvider, useColorScheme } from '@mui/joy/styles';
 
@@ -34,7 +37,22 @@ function ModeToggle() {
   );
 }
 
-export default function App() {
+export default function Register() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const [createUserWithEmailAndPassword, user, loading, error] =
+    useCreateUserWithEmailAndPassword(auth);
+
+  function handleSignOut(e) {
+    e.preventDefault();
+    createUserWithEmailAndPassword(email, password);
+  }
+
+  if (loading) {
+    return <p>carregando...</p>;
+  }
+  
   return (
     <CssVarsProvider>
       <ModeToggle />
@@ -54,9 +72,9 @@ export default function App() {
       >
         <div>
           <Typography level="h4" component="h1">
-            Welcome!
+            Crie sua conta
           </Typography>
-          <Typography level="body-sm">Sign in to continue.</Typography>
+          <Typography level="body-sm">Forneça um e-mail válido e uma senha forte.</Typography>
         </div>
 
         <FormControl>
@@ -65,22 +83,18 @@ export default function App() {
             // html input attribute
             name="email"
             type="email"
-            placeholder="johndoe@email.com"
+            onChange={(e) => setEmail(e.target.value)}
           />
         </FormControl>
         <FormControl>
           <FormLabel>Password</FormLabel>
-          <Input name="password" type="password" placeholder="password" />
+          <Input 
+            name="password" 
+            type="password"
+            onChange={(e) => setPassword(e.target.value)} />
         </FormControl>
+        <Button sx={{ mt: 1 /* margin top */ }} onClick={handleSignOut}>Criar conta</Button>
 
-        <Button sx={{ mt: 1 /* margin top */ }}>Log in</Button>
-        <Typography
-          endDecorator={<Link href="/sign-up">Sign up</Link>}
-          fontSize="sm"
-          sx={{ alignSelf: "center" }}
-        >
-          Não tem uma conta?
-        </Typography>
       </Sheet>
     </CssVarsProvider>
     
