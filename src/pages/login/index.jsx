@@ -15,27 +15,37 @@ import { Link as RouterLink } from "react-router-dom";
 import Link from "@mui/joy/Link";
 
 import { CssVarsProvider, useColorScheme } from "@mui/joy/styles";
+import "../../App.css";
 
 function ModeToggle() {
   const { mode, setMode } = useColorScheme();
   const [mounted, setMounted] = React.useState(false);
 
-  // necessary for server-side rendering
-  // because mode is undefined on the server
   React.useEffect(() => {
     setMounted(true);
   }, []);
+
   if (!mounted) {
     return null;
   }
 
+  const toggleMode = () => {
+    const newMode = mode === "light" ? "dark" : "light";
+    setMode(newMode);
+
+    // Atualize as variáveis CSS globais com base no novo modo
+    document.documentElement.style.setProperty(
+      "--background-color",
+      newMode === "light" ? "#fff" : "#333" // Exemplo: altere as cores de fundo
+    );
+    document.documentElement.style.setProperty(
+      "--text-color",
+      newMode === "light" ? "#000" : "#fff" // Exemplo: altere as cores do texto
+    );
+  };
+
   return (
-    <Button
-      variant="outlined"
-      onClick={() => {
-        setMode(mode === "light" ? "dark" : "light");
-      }}
-    >
+    <Button variant="outlined" onClick={toggleMode}>
       {mode === "light" ? "Turn dark" : "Turn light"}
     </Button>
   );
@@ -62,57 +72,62 @@ export default function Login() {
   return (
     <CssVarsProvider>
       <ModeToggle />
-      <Sheet
-        sx={{
-          width: 300,
-          mx: "auto", // margin left & right
-          my: 4, // margin top & bottom
-          py: 3, // padding top & bottom
-          px: 2, // padding left & right
-          display: "flex",
-          flexDirection: "column",
-          gap: 2,
-          borderRadius: "sm",
-          boxShadow: "md",
-        }}
-      >
-        <div>
-          <Typography level="h4" component="h1">
-            Seja bem-vindo!
-          </Typography>
-          <Typography level="body-sm">Faça login para continuar.</Typography>
-        </div>
-
-        <FormControl>
-          <FormLabel>Email</FormLabel>
-          <Input
-            // html input attribute
-            name="email"
-            type="email"
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </FormControl>
-        <FormControl>
-          <FormLabel>Senha</FormLabel>
-          <Input 
-            name="password" 
-            type="password"
-            onChange={(e) => setPassword(e.target.value)} />
-        </FormControl>
-
-        <Button sx={{ mt: 1 /* margin top */ } } onClick={handleSignIn}>Faça login</Button>
-        <Typography
-          endDecorator={
-            <Link component={RouterLink} to="/register">
-              Crie sua conta!
-            </Link>
-          }
-          fontSize="sm"
-          sx={{ alignSelf: "center" }}
+      <div>
+        <Sheet
+          sx={{
+            width: 300,
+            mx: "auto", // margin left & right
+            my: 4, // margin top & bottom
+            py: 3, // padding top & bottom
+            px: 2, // padding left & right
+            display: "flex",
+            flexDirection: "column",
+            gap: 2,
+            borderRadius: "sm",
+            boxShadow: "md",
+          }}
         >
-          Não tem uma conta?
-        </Typography>
-      </Sheet>
+          <div>
+            <Typography level="h4" component="h1">
+              Seja bem-vindo!
+            </Typography>
+            <Typography level="body-sm">Faça login para continuar.</Typography>
+          </div>
+
+          <FormControl>
+            <FormLabel>Email</FormLabel>
+            <Input
+              // html input attribute
+              name="email"
+              type="email"
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </FormControl>
+          <FormControl>
+            <FormLabel>Senha</FormLabel>
+            <Input
+              name="password"
+              type="password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </FormControl>
+
+          <Button sx={{ mt: 1 /* margin top */ }} onClick={handleSignIn}>
+            Faça login
+          </Button>
+          <Typography
+            endDecorator={
+              <Link component={RouterLink} to="/register">
+                Crie sua conta!
+              </Link>
+            }
+            fontSize="sm"
+            sx={{ alignSelf: "center" }}
+          >
+            Não tem uma conta?
+          </Typography>
+        </Sheet>
+      </div>
     </CssVarsProvider>
   );
 }

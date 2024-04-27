@@ -1,0 +1,19 @@
+/* Definição das variáveis para o tema claro */
+:root {
+    --background-color: #fff; /* Cor de fundo padrão (claro) */
+    --text-color: #000; /* Cor do texto padrão (claro) */
+  }
+  
+  /* Definição das variáveis para o tema escuro */
+  [data-theme='dark'] {
+    --background-color: #333; /* Cor de fundo para o tema escuro */
+    --text-color: #fff; /* Cor do texto para o tema escuro */
+  }
+  
+  /* Aplicação das variáveis aos elementos da página */
+  body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+  }
+  
+  
