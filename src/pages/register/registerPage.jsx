@@ -14,6 +14,8 @@ import Button from "@mui/joy/Button";
 import { CssVarsProvider, useColorScheme } from "@mui/joy/styles";
 import "../../App.css";
 
+import CredentialSelect from "../../components/CredentialSelect";
+
 function ModeToggle() {
   const { mode, setMode } = useColorScheme();
   const [mounted, setMounted] = React.useState(false);
@@ -49,7 +51,7 @@ function ModeToggle() {
   );
 }
 
-export default function Register() {
+function RegisterPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -112,13 +114,17 @@ export default function Register() {
             />
           </FormControl>
           <FormControl>
-            <FormLabel>Password</FormLabel>
+            <FormLabel>Senha</FormLabel>
             <Input
               name="password"
               type="password"
               onChange={(e) => setPassword(e.target.value)}
             />
           </FormControl>
+
+          <CredentialSelect />
+          
+
           <Button sx={{ mt: 1 /* margin top */ }} onClick={handleSignUp}>
             Criar conta
           </Button>
@@ -127,3 +133,5 @@ export default function Register() {
     </CssVarsProvider>
   );
 }
+
+export default RegisterPage;

@@ -1,17 +1,17 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Login from "../pages/login";
-import Register from "../pages/register";
-import Painel from "../pages/crud";
+import { LoginPage } from "../pages/login/LoginPage";
+import Register from "../pages/register/RegisterPage";
+import Painel from "../pages/crud/CrudPage";
 
 export function AppRoutes() {
-    return (
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<Login />} />
-                <Route path="/register" element={<Register />} />
-                <Route path="/painel-admin" element={<Painel />} />
-            </Routes>
-        </BrowserRouter>
-    );
-};
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/painel-admin" element={<Painel />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
