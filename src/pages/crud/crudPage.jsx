@@ -20,8 +20,6 @@ import {
   randomArrayItem,
 } from "@mui/x-data-grid-generator";
 
-import ModeToggleWithProvider from "../../theme/ModeToggle";
-
 /* cria uma constante credential que é um vetor de arrays*/
 const credential = ["Aluno", "Professor", "Admin"];
 
@@ -57,7 +55,7 @@ function EditToolbar(props) {
   );
 }
 
-export default function FullFeaturedCrudGrid() {
+export default function Painel() {
   const [rows, setRows] = React.useState(initialRows);
   const [rowModesModel, setRowModesModel] = React.useState({});
 
@@ -193,7 +191,6 @@ export default function FullFeaturedCrudGrid() {
         },
       }}
     >
-      <ModeToggleWithProvider />
       <DataGrid
         rows={rows}
         columns={columns}

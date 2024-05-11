@@ -18,7 +18,7 @@ import {
 
 const LoginForm = ({ handleSignIn, setEmail, setPassword }) => {
   const signInWithFacebook = () => {
-    // Código signInWithFacebook aqui
+
     const provider = new FacebookAuthProvider();
     const auth_facebook = getAuth();
 
@@ -27,17 +27,15 @@ const LoginForm = ({ handleSignIn, setEmail, setPassword }) => {
         const user = result.user;
         const credential = FacebookAuthProvider.credentialFromResult(result);
         const accessToken = credential.accessToken;
-        // Lógica de sucesso - pode adicionar ações adicionais aqui se necessário
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        const email = error.customData?.email; // Verifique se o email está disponível
+        const email = error.customData?.email;
       });
   };
 
   const signInWithGoogle = () => {
-    // Código signInWithGoogle aqui
     const provider = new GoogleAuthProvider();
     const auth = getAuth();
 

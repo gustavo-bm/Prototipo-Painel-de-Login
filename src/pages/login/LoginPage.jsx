@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import LoginForm from "./LoginForm";
 import ErrorMessage from "./ErrorMessage";
-import ModeToggleWithProvider from "../../theme/ModeToggle";
+import { CssVarsProvider } from "@mui/joy/styles";
 
 import { auth } from "../../services/firebaseConfig";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
@@ -21,15 +21,16 @@ export function LoginPage() {
 
   return (
     <div>
-      <ModeToggleWithProvider />
-      <ErrorMessage message={error} />
-      {loading && <p>Carregando...</p>}
-      <LoginForm
-        handleSignIn={handleSignIn}
-        setEmail={setEmail}
-        setPassword={setPassword}
-      />
-      <PainelAdmin />
+      <CssVarsProvider>
+        <ErrorMessage message={error} />
+        {loading && <p>Carregando...</p>}
+        <LoginForm
+          handleSignIn={handleSignIn}
+          setEmail={setEmail}
+          setPassword={setPassword}
+        />
+        <PainelAdmin />
+      </CssVarsProvider>
     </div>
   );
 }
